@@ -1,0 +1,208 @@
+@mixin text-ellipsis() {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+@mixin set-margin-padding($margin, $padding) {
+  margin: $margin;
+  padding: $padding;
+}
+
+@mixin set-position($position, $top, $right, $bottom, $left) {
+  position: $position;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+@mixin set-z-index($position, $z-index) {
+  position: $position;
+  z-index: $z-index;
+}
+
+@mixin set-display-flex($wrap) {
+  display: flex;
+  flex-wrap: $wrap;
+}
+
+@mixin set-flex($direction, $justify-content, $align-items) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
+
+@mixin set-flex-size($size) {
+  flex: 0 0 $size;
+  max-width: $size;
+}
+
+@mixin set-flex-and-flex-direction($flex, $flex-direction) {
+  flex: $flex;
+  flex-direction: $flex-direction;
+}
+
+@mixin set-flex-center($justify-content, $align-items) {
+  display: flex;
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
+
+@mixin set-flex-center-with-flow($justify-content, $align-items, $flow) {
+  display: flex;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  flex-flow: $flow;
+}
+
+@mixin set-size($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+@mixin set-width-and-max-width($width, $max-width) {
+  width: $width;
+  max-width: $max-width;
+}
+
+@mixin set-max-size($width, $height) {
+  max-width: $width;
+  max-height: $height;
+}
+
+@mixin set-min-size($min-width, $min-height) {
+  min-width: $min-width;
+  min-height: $min-height;
+}
+
+@mixin set-background-settings($repeat, $position, $size) {
+  background-repeat: $repeat;
+  background-position: $position;
+  background-size: $size;
+}
+
+@mixin set-font-size-color($size, $color) {
+  font-size: $size;
+  color: $color;
+}
+
+@mixin set-font-size-weight($size, $weight) {
+  font-size: $size;
+  font-weight: $weight;
+}
+
+@mixin set-font-weight-height($weight, $line-height) {
+  font-weight: $weight;
+  line-height: $line-height;
+}
+
+@mixin set-font-color-weight($color, $weight) {
+  color: $color;
+  font-weight: $weight;
+}
+
+@mixin set-font-size-height($size, $height) {
+  font-size: $size;
+  line-height: $height;
+}
+
+@mixin set-font-awesome($content) {
+  content: $content;
+  font-family: 'Font Awesome 5 Free', sans-serif;
+}
+
+@mixin set-visibility($height, $opacity) {
+  height: $height;
+  opacity: $opacity;
+}
+
+@mixin set-max-height-visibility($max-height, $opacity) {
+  max-height: $max-height;
+  opacity: $opacity;
+}
+
+@mixin set-border($border, $border-color) {
+  border: $border;
+  border-color: $border-color;
+}
+
+@mixin set-border-and-background($border, $background-color) {
+  border-color: $border;
+  background-color: $background-color;
+}
+
+@mixin set-transition-and-delay($transition, $delay) {
+  transition: $transition;
+  transition-delay: $delay;
+}
+
+@mixin set-overflow-xy($x, $y) {
+  overflow-x: $x;
+  overflow-y: $y;
+}
+
+@mixin set-form-group-width($width, $margin) {
+  @include set-flex-size($width);
+
+  &:nth-of-type(even) {
+    margin-left: $margin;
+  }
+}
+
+@mixin set-cursor-hover($cursor) {
+  cursor: $cursor;
+  transition: color 0.2s ease-out;
+
+  &:hover {
+    color: $app-menu-color-hover;
+  }
+}
+
+@mixin set-cursor-hover-color($cursor, $color) {
+  cursor: $cursor;
+  transition: color 0.2s ease-out;
+
+  &:hover {
+    color: $color;
+  }
+}
+
+@mixin set-scrollbar($selector, $width, $thumb-background, $track-background) {
+  #{$selector}::-webkit-scrollbar {
+    width: $width;
+  }
+
+  #{$selector}::-webkit-scrollbar-thumb {
+    background: $thumb-background;
+  }
+
+  #{$selector}::-webkit-scrollbar-track {
+    background: $track-background;
+  }
+}
+
+@mixin set-border-radius($border-radius) {
+  border-radius: $border-radius;
+}
+
+@mixin set-border-and-radius($border, $border-radius) {
+  border: $border;
+  border-radius: $border-radius;
+}
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}

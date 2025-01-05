@@ -1,0 +1,56 @@
+<app-loader [isLoading]="isLoading"></app-loader>
+<div class="login">
+    <div class="login__info">
+
+        <div class="content">
+            <h2 class="content__title">Welcome Back!</h2>
+            <p class="content__text">To keep connected with us please login with your personal info</p>
+        </div>
+    </div>
+
+    <div class="login__container">
+
+        <h2 class="content-name">Login</h2>
+
+        <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+            <mat-form-field class="form__field">
+                <mat-label class="label">Email</mat-label>
+                <input formControlName="email" matInput autofocus />
+                @if (loginForm.controls.email.hasError('email') &&
+                !loginForm.controls.email.hasError('required')) {
+                <mat-error class="form__error">Please enter a valid email address</mat-error>
+                } @if (loginForm.controls.email.hasError('required')) {
+                <mat-error class="form__error">Email is <strong>required</strong></mat-error>
+                }
+
+            </mat-form-field>
+
+            <mat-form-field class="form__field">
+                <mat-label class="label">Password</mat-label>
+                <input formControlName="password" matInput [type]="hide() ? 'password' : 'text'" />
+                <button class="button-password" mat-icon-button matSuffix (click)="toggleHide($event)"
+                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()" type="button">
+                    <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
+                </button>
+                @if (loginForm.controls.password.hasError('required')) {
+                <mat-error class="form__error">Password is <strong>required</strong></mat-error>
+                }
+
+            </mat-form-field>
+            <div class="form__submit">
+                <button class="button"
+                    [disabled]="loginForm.controls.email.errors || loginForm.controls.password.errors">
+                    Sign in
+                </button>
+                <div class="text">
+                    <p class="forgot" (click)="navigate('/auth/forgot')"> forgot password?</p>
+                    <div class="line"></div>
+                </div>
+
+                <button class="button" (click)="navigate('/auth/register')">Sign up</button>
+            </div>
+        </form>
+    </div>
+
+</div>

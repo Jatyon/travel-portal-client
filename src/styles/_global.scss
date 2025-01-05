@@ -1,0 +1,15 @@
+@use 'mixins' as *;
+@use 'variables' as *;
+
+html,
+body {
+  @include set-min-size(100%, 100%);
+  @include set-size(100%, 100%);
+  @include set-font-size-weight(10px, 400);
+  font-family: $font-roboto;
+  cursor: default;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
