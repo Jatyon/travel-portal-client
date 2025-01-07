@@ -39,7 +39,7 @@
 
             </mat-form-field>
             <div class="form__submit">
-                <button class="button"
+                <button class="button" type="submit"
                     [disabled]="loginForm.controls.email.errors || loginForm.controls.password.errors">
                     Sign in
                 </button>
@@ -48,7 +48,7 @@
                     <div class="line"></div>
                 </div>
 
-                <button class="button" (click)="navigate('/auth/register')">Sign up</button>
+                <button class="button" type="button" (click)="navigate('/auth/register')">Sign up</button>
             </div>
         </form>
     </div>

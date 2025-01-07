@@ -37,7 +37,7 @@ export class LoginComponent {
 
   onSubmit() {
     if (!this.loginForm.valid) {
-      this.toastrService.error('invalid-credentials');
+      this.toastrService.error('invalid-credentials1');
       return;
     }
     this.isLoading = true;

@@ -6,6 +6,7 @@ import { User } from '@shared/user/models/user.model';
 import { AuthLoginCredentials } from '../models/auth-login-credentials.model';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { plainToClass } from 'class-transformer';
+import { AuthRegisterCredentials } from '../models/auth-register-credentials.model';
 
 const ACCESS_TOKEN = 'accessToken';
 const REFRESH_TOKEN = 'refreshToken';
@@ -52,6 +53,10 @@ export class AuthService {
 
   login(credentials: AuthLoginCredentials): Observable<AuthLoginResult> {
     return this.httpClient.post<AuthLoginResult>(`${environment.host}/auth/login`, credentials).pipe(map((r) => plainToClass(AuthLoginResult, r)));
+  }
+
+  register(credentials: AuthRegisterCredentials): Observable<boolean> {
+    return this.httpClient.post<boolean>(`${environment.host}/auth/register`, credentials);
   }
 
   refreshToken(): Observable<AuthLoginResult> {

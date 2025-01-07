@@ -1,0 +1,82 @@
+<app-loader [isLoading]="isLoading"></app-loader>
+<div class="login">
+    <div class="login__info">
+
+        <div class="content">
+            <h2 class="content__title">Welcome First Time!</h2>
+            <p class="content__text">To keep connected with us please register with your personal info</p>
+        </div>
+    </div>
+
+    <div class="login__container">
+
+        <h2 class="content-name">Register</h2>
+
+        <form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+            <mat-form-field class="form__field">
+                <mat-label class="label">Nick</mat-label>
+                <input formControlName="nick" matInput autofocus />
+                @if (registerForm.controls.nick.hasError('nick') &&
+                !registerForm.controls.nick.hasError('required')) {
+                <mat-error class="form__error">Please enter a valid nick</mat-error>
+                } @if (registerForm.controls.nick.hasError('required')) {
+                <mat-error class="form__error">Nick is <strong>required</strong></mat-error>
+                }
+
+            </mat-form-field>
+
+            <mat-form-field class="form__field">
+                <mat-label class="label">Email</mat-label>
+                <input formControlName="email" matInput autofocus />
+                @if (registerForm.controls.email.hasError('email') &&
+                !registerForm.controls.email.hasError('required')) {
+                <mat-error class="form__error">Please enter a valid email address</mat-error>
+                } @if (registerForm.controls.email.hasError('required')) {
+                <mat-error class="form__error">Email is <strong>required</strong></mat-error>
+                }
+
+            </mat-form-field>
+
+            <mat-form-field class="form__field">
+                <mat-label class="label">Password</mat-label>
+                <input formControlName="password" matInput [type]="hidePassword ? 'password' : 'text'" />
+                <button class="button-password" mat-icon-button matSuffix (click)="toggleHide('password')"
+                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword" type="button">
+                    <mat-icon>{{ hidePassword ? "visibility_off" : "visibility" }}</mat-icon>
+                </button>
+                @if (registerForm.controls.password.hasError('required')) {
+                <mat-error class="form__error">Password is <strong>required</strong></mat-error>
+                }
+
+            </mat-form-field>
+
+            <mat-form-field class="form__field">
+                <mat-label class="label">Repeat Password</mat-label>
+                <input formControlName="passwordRepeat" matInput [type]="hidePasswordRepeat? 'password' : 'text'" />
+                <button class="button-password" mat-icon-button matSuffix (click)="toggleHide('passwordRepeat')"
+                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePasswordRepeat" type="button">
+                    <mat-icon>{{ hidePasswordRepeat ? "visibility_off" : "visibility" }}</mat-icon>
+                </button>
+                @if (registerForm.controls.passwordRepeat.hasError('required')) {
+                <mat-error class="form__error">Repeat Password is <strong>required</strong></mat-error>
+                }
+
+            </mat-form-field>
+
+            <div class="form__submit">
+                <button class="button" type="submit"
+                    [disabled]="registerForm.controls.email.errors || registerForm.controls.password.errors">
+                    Sign up
+                </button>
+                <div class="text">
+                    <p class="forgot" (click)="navigate('/auth/forgot')"> forgot password?</p>
+                    <div class="line"></div>
+                </div>
+
+                <button class="button" type="button" (click)="navigate('/auth/login')">Sign in</button>
+            </div>
+        </form>
+    </div>
+
+</div>
