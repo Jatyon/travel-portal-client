@@ -19,6 +19,10 @@ export const authLayoutRoutes: AppRoutes = [
         path: 'register',
         loadComponent: (): Promise<any> => import('@modules/auth/components/register/register.component').then((c) => c.RegisterComponent),
       },
+      {
+        path: 'forgot',
+        loadComponent: (): Promise<any> => import('@modules/auth/components/forgot-password/forgot-password.component').then((c) => c.ForgotPasswordComponent),
+      },
     ],
   },
 ];

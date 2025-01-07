@@ -7,6 +7,7 @@ import { AuthLoginCredentials } from '../models/auth-login-credentials.model';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { plainToClass } from 'class-transformer';
 import { AuthRegisterCredentials } from '../models/auth-register-credentials.model';
+import { AuthForgotPasswordCredentials } from '../models/auth-forgot-password-credentials.model';
 
 const ACCESS_TOKEN = 'accessToken';
 const REFRESH_TOKEN = 'refreshToken';
@@ -57,6 +58,14 @@ export class AuthService {
 
   register(credentials: AuthRegisterCredentials): Observable<boolean> {
     return this.httpClient.post<boolean>(`${environment.host}/auth/register`, credentials);
+  }
+
+  forgotPasswordEmail(credentials: AuthForgotPasswordCredentials): Observable<boolean> {
+    return this.httpClient.post<boolean>(`${environment.host}/auth/forgot-password`, credentials);
+  }
+
+  forgotPasswordToken(token: string): Observable<boolean> {
+    return this.httpClient.get<boolean>(`${environment.host}/auth/forgot-password/${token}`);
   }
 
   refreshToken(): Observable<AuthLoginResult> {
