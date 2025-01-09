@@ -20,8 +20,12 @@ export const authLayoutRoutes: AppRoutes = [
         loadComponent: (): Promise<any> => import('@modules/auth/components/register/register.component').then((c) => c.RegisterComponent),
       },
       {
-        path: 'forgot',
+        path: 'forgot-password',
         loadComponent: (): Promise<any> => import('@modules/auth/components/forgot-password/forgot-password.component').then((c) => c.ForgotPasswordComponent),
+      },
+      {
+        path: 'change-password/:token',
+        loadComponent: (): Promise<any> => import('@modules/auth/components/change-password/change-password.component').then((c) => c.ChangePasswordComponent),
       },
     ],
   },

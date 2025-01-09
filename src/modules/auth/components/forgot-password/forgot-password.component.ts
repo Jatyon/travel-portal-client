@@ -22,24 +22,24 @@ import { AuthService } from '@shared/auth/services/auth.service';
 export class ForgotPasswordComponent {
   data = new AuthLoginCredentials();
   isLoading: boolean = false;
-  isSendEmail: boolean = false;
-  loginForm = new FormGroup({
+  isSentForm: boolean = false;
+  form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
   });
 
   constructor(private readonly router: Router, private readonly authService: AuthService, private readonly toastrService: ToastService) {}
 
   onSubmit() {
-    if (!this.loginForm.valid) {
+    if (!this.form.valid) {
       this.toastrService.error('invalid-credentials1');
       return;
     }
     this.isLoading = true;
 
-    this.authService.forgotPasswordEmail(this.loginForm.value as AuthForgotPasswordCredentials).subscribe({
+    this.authService.forgotPasswordEmail(this.form.value as AuthForgotPasswordCredentials).subscribe({
       next: () => {
         this.isLoading = false;
-        this.isSendEmail = true;
+        this.isSentForm = true;
       },
       error: (err) => {
         this.isLoading = false;

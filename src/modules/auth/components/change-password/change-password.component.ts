@@ -2,37 +2,44 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ToastService } from '@core/services/toast/toast.service';
+import { AuthChangePasswordCredentials } from '@shared/auth/models/auth-change-password-credentials.model';
 import { AuthLoginCredentials } from '@shared/auth/models/auth-login-credentials.model';
 import { LoaderComponent } from '@shared/loader/loader.component';
-import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '@shared/auth/services/auth.service';
-import { AuthLoginResult } from '@shared/auth/models/auth-login-result.model';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-change-password',
   standalone: true,
   imports: [CommonModule, RouterModule, FormsModule, LoaderComponent, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  templateUrl: './change-password.component.html',
+  styleUrls: ['./change-password.component.scss'],
 })
-export class LoginComponent {
+export class ChangePasswordComponent implements OnInit {
   data = new AuthLoginCredentials();
   isLoading: boolean = false;
-  hide = signal(true);
+  hidePassword = true;
+  hidePasswordRepeat = true;
+  isSentForm: boolean = false;
+  token!: string;
   form = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
+    passwordRepeat: new FormControl('', [Validators.required]),
   });
 
-  constructor(private readonly router: Router, private readonly authService: AuthService, private readonly toastrService: ToastService) {}
+  constructor(private readonly router: Router, private route: ActivatedRoute, private readonly authService: AuthService, private readonly toastrService: ToastService) {}
 
-  toggleHide(event: MouseEvent): void {
-    this.hide.set(!this.hide());
-    event.stopPropagation();
+  ngOnInit() {
+    this.token = this.route.snapshot.paramMap.get('id')!;
+  }
+
+  toggleHide(field: string): void {
+    if (field === 'password') this.hidePassword = !this.hidePassword;
+    else if (field === 'passwordRepeat') this.hidePasswordRepeat = !this.hidePasswordRepeat;
   }
 
   onSubmit() {
@@ -42,11 +49,16 @@ export class LoginComponent {
     }
     this.isLoading = true;
 
-    this.authService.login(this.form.value as AuthLoginCredentials).subscribe({
-      next: (value: AuthLoginResult) => {
+    const credentials: AuthChangePasswordCredentials = {
+      password: this.form.value.password as string,
+      passwordRepeat: this.form.value.passwordRepeat as string,
+      token: this.token,
+    };
+
+    this.authService.changePassword(credentials).subscribe({
+      next: () => {
         this.isLoading = false;
-        this.authService.loginLocal(value);
-        this.navigate('/');
+        this.isSentForm = true;
       },
       error: (err) => {
         this.isLoading = false;

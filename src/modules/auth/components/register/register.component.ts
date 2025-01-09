@@ -23,7 +23,7 @@ export class RegisterComponent {
   isLoading: boolean = false;
   hidePassword = true;
   hidePasswordRepeat = true;
-  registerForm = new FormGroup({
+  form = new FormGroup({
     nick: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
@@ -38,19 +38,19 @@ export class RegisterComponent {
   }
 
   onSubmit() {
-    if (!this.registerForm.valid) {
+    if (!this.form.valid) {
       this.toastrService.error('invalid-credentials2');
       return;
     }
 
-    if (this.registerForm.value.password !== this.registerForm.value.passwordRepeat) {
+    if (this.form.value.password !== this.form.value.passwordRepeat) {
       this.toastrService.error('Passwords do not match');
       return;
     }
 
     this.isLoading = true;
 
-    this.authService.register(this.registerForm.value as AuthRegisterCredentials).subscribe({
+    this.authService.register(this.form.value as AuthRegisterCredentials).subscribe({
       next: (value: boolean) => {
         this.navigate('/auth/login');
       },
