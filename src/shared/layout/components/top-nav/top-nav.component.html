@@ -1,0 +1,25 @@
+<div class="nav">
+	<div class="nav__logo">
+		<span class="logo">Travel portal</span>
+	</div>
+
+	<div class="nav__search">
+		<input type="text" [formControl]="searchControl" placeholder="Search" />
+
+		@if (users.length > 0) {
+		<div *ngIf="users.length > 0">
+			<ul>
+				@for (user of users; track $index) {
+				<li>{{ user.email }}</li>
+				}
+
+			</ul>
+		</div>
+		}
+
+	</div>
+
+	<div class="nav__panel">
+
+	</div>
+</div>

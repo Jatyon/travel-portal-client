@@ -1,0 +1,45 @@
+// @import 'variables';
+
+:host {
+	// .sb-topnav {
+	// 	padding-left: 0;
+	// 	height: $topnav-base-height;
+	// 	z-index: $zindex-topnav;
+	// 	background-color: #2b364f !important;
+
+	// 	ngx-select {
+	// 		display: block;
+	// 		min-width: 250px;
+	// 		max-width: 250px;
+	// 	}
+
+	// 	.navbar-brand {
+	// 		width: $sidenav-base-width;
+	// 		padding-left: $navbar-padding-x;
+	// 		padding-right: $navbar-padding-x;
+	// 		margin: 0;
+	// 		display: flex;
+	// 		justify-content: space-evenly;
+	// 		align-items: center;
+	// 	}
+
+	// 	&.navbar-dark {
+	// 		#sidebarToggle {
+	// 			color: $topnav-dark-toggler-color;
+	// 		}
+	// 	}
+
+	// 	&.navbar-light {
+	// 		#sidebarToggle {
+	// 			color: $topnav-light-toggler-color;
+	// 		}
+	// 	}
+	// }
+
+	// &.sb-top-fixed {
+	// 	.sb-topnav {
+	// 		@extend .fixed-top;
+	// 		z-index: $zindex-topnav;
+	// 	}
+	// }
+}
