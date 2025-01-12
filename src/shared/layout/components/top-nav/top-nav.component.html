@@ -1,25 +1,38 @@
 <div class="nav">
+	@if (isSearch) {
+	<app-search [isArrowBack]="true"></app-search>
+	}
+	@else {
 	<div class="nav__logo">
 		<span class="logo">Travel portal</span>
 	</div>
 
 	<div class="nav__search">
-		<input type="text" [formControl]="searchControl" placeholder="Search" />
+		<div class="icon-container">
+			<mat-icon class="icon">search</mat-icon>
+		</div>
 
 		@if (users.length > 0) {
-		<div *ngIf="users.length > 0">
-			<ul>
+		<div class="results">
+			<ul class="results__list">
 				@for (user of users; track $index) {
-				<li>{{ user.email }}</li>
+				<li class="results__list-itm">{{ user.email }}</li>
 				}
-
 			</ul>
 		</div>
 		}
-
 	</div>
 
 	<div class="nav__panel">
-
+		<div class="icon-container">
+			<mat-icon class="icon">add_circle</mat-icon>
+		</div>
+		<div class="icon-container">
+			<mat-icon class="icon">notifications</mat-icon>
+		</div>
+		<div class="icon-container">
+			<mat-icon class="icon">account_circle</mat-icon>
+		</div>
 	</div>
+	}
 </div>

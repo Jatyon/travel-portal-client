@@ -1,0 +1,30 @@
+<div class="search">
+	<div class="search__wrapper">
+		@if(isArrowBack){
+		<div class="icon-container">
+			<mat-icon class="icon">arrow_back</mat-icon>
+		</div>
+		}
+
+		<input class="input" type="text" [formControl]="searchControl" placeholder="Search" />
+
+		<div class="buttons">
+			<div class="icon-container">
+				<mat-icon class="icon">close</mat-icon>
+			</div>
+			<div class="icon-container">
+				<mat-icon class="icon">search</mat-icon>
+			</div>
+		</div>
+
+	</div>
+	@if (users.length > 0) {
+	<div class="search__results">
+		<ul class="results__list">
+			@for (user of users; track $index) {
+			<li class="results__list-itm">{{ user.email }}</li>
+			}
+		</ul>
+	</div>
+	}
+</div>

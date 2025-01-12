@@ -1,47 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 import { User } from '@shared/user/models/user.model';
-import { UserService } from '@shared/user/services/user.service';
-import { catchError, debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
+import { SearchComponent } from '../search/search.component';
 
 @Component({
   selector: 'app-top-nav',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MatIconModule, SearchComponent],
   templateUrl: './top-nav.component.html',
   styleUrls: ['top-nav.component.scss'],
 })
 export class TopNavComponent implements OnInit {
   searchControl = new FormControl();
   users: User[] = [];
-  isLoading = false;
+  isLoading: boolean = false;
+  isSearch: boolean = true;
 
-  constructor(private readonly userService: UserService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.search();
-  }
-
-  search(): void {
-    this.searchControl.valueChanges
-      .pipe(
-        debounceTime(300),
-        distinctUntilChanged(),
-        switchMap((query) => {
-          if (query.trim() === '') return of([]);
-
-          this.isLoading = true;
-          return this.userService.findUsersInSearch(query);
-        }),
-        catchError(() => {
-          this.isLoading = false;
-          return of([]);
-        }),
-      )
-      .subscribe((results) => {
-        this.users = results;
-        this.isLoading = false;
-      });
-  }
+  ngOnInit(): void {}
 }

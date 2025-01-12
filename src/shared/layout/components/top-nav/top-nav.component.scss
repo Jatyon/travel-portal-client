@@ -1,45 +1,62 @@
-// @import 'variables';
+@use 'variables' as *;
 
 :host {
-	// .sb-topnav {
-	// 	padding-left: 0;
-	// 	height: $topnav-base-height;
-	// 	z-index: $zindex-topnav;
-	// 	background-color: #2b364f !important;
+  width: 100%;
+  height: 100%;
 
-	// 	ngx-select {
-	// 		display: block;
-	// 		min-width: 250px;
-	// 		max-width: 250px;
-	// 	}
+  .nav {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0.8em;
 
-	// 	.navbar-brand {
-	// 		width: $sidenav-base-width;
-	// 		padding-left: $navbar-padding-x;
-	// 		padding-right: $navbar-padding-x;
-	// 		margin: 0;
-	// 		display: flex;
-	// 		justify-content: space-evenly;
-	// 		align-items: center;
-	// 	}
+    .icon-container {
+      .icon {
+        color: white;
+        padding: 0.8rem;
+        border-radius: 50%;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
 
-	// 	&.navbar-dark {
-	// 		#sidebarToggle {
-	// 			color: $topnav-dark-toggler-color;
-	// 		}
-	// 	}
+        :hover {
+          color: white;
+        }
+      }
 
-	// 	&.navbar-light {
-	// 		#sidebarToggle {
-	// 			color: $topnav-light-toggler-color;
-	// 		}
-	// 	}
-	// }
+      :hover {
+        background-color: $blue-300;
+      }
+    }
 
-	// &.sb-top-fixed {
-	// 	.sb-topnav {
-	// 		@extend .fixed-top;
-	// 		z-index: $zindex-topnav;
-	// 	}
-	// }
+    &__logo {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      .logo {
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: $white;
+      }
+    }
+
+    &__search {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      width: 100%;
+
+      .input-wrapper {
+        display: none;
+      }
+    }
+
+    &__panel {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 }

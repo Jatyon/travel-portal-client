@@ -4,7 +4,8 @@ $font-roboto: 'Roboto', sans-serif;
 
 // Color variables
 
-$white: #fff;
+$white: #ffffff;
+$white-alfa: #ffffff9a;
 $light-bg: #f8f9fa;
 
 $gray-100: #f0f1f6;
@@ -15,10 +16,11 @@ $gray-500: #718096;
 $gray-600: #71717a;
 
 $black: #000000;
+$black-alfa: #0000001a;
 $light-black: #2d3748;
 
-$lightShadowColor: rgba(58, 58, 58, 0.103);
-$darkShadowColor: rgba(0, 0, 0, 0.5);
+$lightShadowColor: #3a3a3a1a;
+$darkShadowColor: #00000080;
 
 $blue-100: #99a9f3;
 $blue-200: #a2afff;
