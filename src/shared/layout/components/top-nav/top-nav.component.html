@@ -1,29 +1,24 @@
 <div class="nav">
-	@if (isSearch) {
-	<app-search [isArrowBack]="true"></app-search>
-	}
-	@else {
-	<div class="nav__logo">
-		<span class="logo">Travel portal</span>
+	<div class="nav__logo nav-element" [ngClass]="{'invisible': isSearch}">
+		<span class="logo" (click)="navigate('/')">Travel portal</span>
 	</div>
 
-	<div class="nav__search">
-		<div class="icon-container">
+	<div class="nav__search nav-element">
+
+		@if (isSmallScreen) {
+		<app-search [ngClass]="{'invisible': !isSearch}" [isArrowBack]="true"
+			(closeSearch)="toogleIsSearch()"></app-search>
+		}
+		@else {
+		<app-search (closeSearch)="toogleIsSearch()"></app-search>
+		}
+
+	</div>
+
+	<div class="nav__panel nav-element" [ngClass]="{'invisible': isSearch}">
+		<div class="icon-container search-icon" (click)="toogleIsSearch()">
 			<mat-icon class="icon">search</mat-icon>
 		</div>
-
-		@if (users.length > 0) {
-		<div class="results">
-			<ul class="results__list">
-				@for (user of users; track $index) {
-				<li class="results__list-itm">{{ user.email }}</li>
-				}
-			</ul>
-		</div>
-		}
-	</div>
-
-	<div class="nav__panel">
 		<div class="icon-container">
 			<mat-icon class="icon">add_circle</mat-icon>
 		</div>
@@ -34,5 +29,4 @@
 			<mat-icon class="icon">account_circle</mat-icon>
 		</div>
 	</div>
-	}
 </div>

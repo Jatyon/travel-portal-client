@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { User } from '@shared/user/models/user.model';
+import { UserSearch } from '@shared/user/models/user-search.model';
 import { UserService } from '@shared/user/services/user.service';
 import { catchError, debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
 
@@ -16,14 +16,23 @@ import { catchError, debounceTime, distinctUntilChanged, of, switchMap } from 'r
 export class SearchComponent implements OnInit {
   @Input() isArrowBack: boolean = false;
 
+  @Output() closeSearch = new EventEmitter<void>();
+
   searchControl = new FormControl();
-  users: User[] = [];
-  isLoading: boolean = false;
+  users: UserSearch[] = [];
 
   constructor(private readonly userService: UserService) {}
 
   ngOnInit(): void {
     this.search();
+  }
+
+  toogleSearch() {
+    this.closeSearch.emit();
+  }
+
+  clearSearch() {
+    this.searchControl.reset();
   }
 
   search(): void {
@@ -34,17 +43,14 @@ export class SearchComponent implements OnInit {
         switchMap((query) => {
           if (query.trim() === '') return of([]);
 
-          this.isLoading = true;
           return this.userService.findUsersInSearch(query);
         }),
         catchError(() => {
-          this.isLoading = false;
           return of([]);
         }),
       )
       .subscribe((results) => {
         this.users = results;
-        this.isLoading = false;
       });
   }
 }

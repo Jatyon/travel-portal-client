@@ -9,7 +9,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 0.8em;
+    padding: 0 2em;
 
     .icon-container {
       .icon {
@@ -30,22 +30,20 @@
     }
 
     &__logo {
-      width: 100%;
       display: flex;
       justify-content: flex-start;
       align-items: center;
+      flex: 0 0 auto;
 
       .logo {
         font-size: 1.6rem;
         font-weight: 500;
         color: $white;
+        cursor: pointer;
       }
     }
 
     &__search {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
       width: 100%;
 
       .input-wrapper {
@@ -55,8 +53,45 @@
 
     &__panel {
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: center;
+    }
+  }
+
+  .invisible {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 576px) {
+  :host {
+    .nav {
+      &__search {
+        flex: 0 1 680px;
+        margin: 0 2em;
+      }
+
+      .search-input {
+        display: flex;
+      }
+
+      .search-icon {
+        display: none;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  :host {
+    .nav {
+      &__search {
+        margin: 0 6em;
+      }
+
+      &__panel {
+        gap: 0.5em;
+      }
     }
   }
 }

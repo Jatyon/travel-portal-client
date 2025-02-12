@@ -1,18 +1,18 @@
 <div class="search">
-	<div class="search__wrapper">
+	<div class="search__wrapper" [ngClass]="{'result-visible': users.length > 0}">
 		@if(isArrowBack){
-		<div class="icon-container">
+		<div class="icon-container" (click)="toogleSearch()">
 			<mat-icon class="icon">arrow_back</mat-icon>
 		</div>
 		}
 
-		<input class="input" type="text" [formControl]="searchControl" placeholder="Search" />
+		<input class="input" type="text" [formControl]="searchControl" placeholder="Search" autofocus />
 
 		<div class="buttons">
-			<div class="icon-container">
+			<div class="icon-container" (click)="clearSearch()">
 				<mat-icon class="icon">close</mat-icon>
 			</div>
-			<div class="icon-container">
+			<div class="icon-container" (click)="search()">
 				<mat-icon class="icon">search</mat-icon>
 			</div>
 		</div>
@@ -20,9 +20,18 @@
 	</div>
 	@if (users.length > 0) {
 	<div class="search__results">
-		<ul class="results__list">
+		<ul class="results-list">
 			@for (user of users; track $index) {
-			<li class="results__list-itm">{{ user.email }}</li>
+			<li class="results-list__item">
+				<div class="photo-container">
+					<img class="photo" src="./assets/img/avatars/default.jpg" alt="" srcset="">
+				</div>
+				<div class="info-container">
+					<span class="nick"> {{user.nick}}</span>
+					<span class="info"> {{user.addInfo}}</span>
+				</div>
+
+			</li>
 			}
 		</ul>
 	</div>

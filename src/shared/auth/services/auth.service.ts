@@ -44,7 +44,7 @@ export class AuthService {
   }
 
   loginLocal(result: AuthLoginResult): void {
-    this.saveTokens(result);
+    if (result.token) this.saveTokens(result);
     this.user$.next(result.user);
   }
 
