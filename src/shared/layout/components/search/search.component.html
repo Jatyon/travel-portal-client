@@ -1,39 +1,55 @@
-<div class="search">
-	<div class="search__wrapper" [ngClass]="{'result-visible': users.length > 0}">
+<div #searchDiv class="search">
+	<div class="search__wrapper" [ngClass]="{'result-visible': isSearch}">
+
 		@if(isArrowBack){
 		<div class="icon-container" (click)="toogleSearch()">
 			<mat-icon class="icon">arrow_back</mat-icon>
 		</div>
 		}
-
-		<input class="input" type="text" [formControl]="searchControl" placeholder="Search" autofocus />
-
+		<input class="input" type="text" [formControl]="searchControl" placeholder="Search" autofocus
+			(click)="onInputClick()" />
 		<div class="buttons">
+
+			@if (isSearch) {
 			<div class="icon-container" (click)="clearSearch()">
 				<mat-icon class="icon">close</mat-icon>
 			</div>
-			<div class="icon-container" (click)="search()">
+			}
+			<div class="icon-container" (click)="searchUsers()">
 				<mat-icon class="icon">search</mat-icon>
 			</div>
 		</div>
-
 	</div>
-	@if (users.length > 0) {
+
+	@if (isSearch) {
 	<div class="search__results">
-		<ul class="results-list">
+		<div class="results-list">
+
+			@if (users.length > 0) {
 			@for (user of users; track $index) {
-			<li class="results-list__item">
-				<div class="photo-container">
-					<img class="photo" src="./assets/img/avatars/default.jpg" alt="" srcset="">
-				</div>
+			<div class="results-list__item">
+				@if (user.photo) {
+				<img class="photo" src="'{{user.photo}}'" alt="photo">
+				}
+				@else {
+				<img class="photo" src="./assets/img/avatars/default.jpg" alt="photo">
+				}
+
 				<div class="info-container">
 					<span class="nick"> {{user.nick}}</span>
 					<span class="info"> {{user.addInfo}}</span>
 				</div>
-
-			</li>
+			</div>
 			}
-		</ul>
+			}
+			@else {
+			<div class="results-list__item">
+				<div class="no-item-container">
+					<span class="info">No results</span>
+				</div>
+			</div>
+			}
+		</div>
 	</div>
 	}
 </div>
