@@ -23,7 +23,11 @@
 			<mat-icon class="icon">add_circle</mat-icon>
 		</div>
 		<div class="icon-container">
-			<mat-icon class="icon">notifications</mat-icon>
+			<mat-icon class="icon">
+				notifications
+				<span matBadgeOverlap="true" matBadgeSize="large" matBadge="{{numNotifications}}"
+					[matBadgeHidden]="isBadgeHidden"></span>
+			</mat-icon>
 		</div>
 		<div class="icon-container">
 			<mat-icon class="icon">account_circle</mat-icon>

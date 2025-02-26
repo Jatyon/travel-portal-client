@@ -7,8 +7,6 @@ export class UserResolver implements Resolve<any> {
   constructor(private readonly authService: AuthService) {}
 
   resolve() {
-    const userValue = this.authService.user;
-    if (!userValue) return this.authService.getProfile();
-    return userValue;
+    return this.authService.isAuthenticated();
   }
 }

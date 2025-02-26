@@ -45,7 +45,7 @@ export class LoginComponent {
     this.authService.login(this.form.value as AuthLoginCredentials).subscribe({
       next: (value: AuthLoginResult) => {
         this.isLoading = false;
-        this.authService.loginLocal(value);
+        this.authService.saveTokens(value);
         this.navigate('/');
       },
       error: (err) => {

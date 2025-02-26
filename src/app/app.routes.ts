@@ -1,8 +1,10 @@
 import { UserResolver } from '@core/resolvers/user.resolver';
+import { AuthGuard } from '@shared/auth/guards/auth.guard';
 import { AppRoutes } from '@shared/layout/types/app-routes.type';
 
 export const routes: AppRoutes = [
   {
+    canActivate: [AuthGuard],
     resolve: { user: UserResolver },
     path: '',
     loadChildren: (): Promise<any> => import('@layouts/main-layout/main-layout.routes').then((c) => c.mainLayoutRoutes),

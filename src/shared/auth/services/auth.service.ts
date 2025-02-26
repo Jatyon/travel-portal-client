@@ -2,13 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { AuthLoginResult } from '@shared/auth/models/auth-login-result.model';
-import { User } from '@shared/user/models/user.model';
-import { AuthLoginCredentials } from '../models/auth-login-credentials.model';
-import { BehaviorSubject, map, Observable } from 'rxjs';
-import { plainToClass } from 'class-transformer';
-import { AuthRegisterCredentials } from '../models/auth-register-credentials.model';
 import { AuthForgotPasswordCredentials } from '../models/auth-forgot-password-credentials.model';
 import { AuthChangePasswordCredentials } from '../models/auth-change-password-credentials.model';
+import { AuthRegisterCredentials } from '../models/auth-register-credentials.model';
+import { AuthLoginCredentials } from '../models/auth-login-credentials.model';
+import { ProfileInfoUser } from '../models/profile-info-user.model';
+import { BehaviorSubject, map, Observable } from 'rxjs';
+import { plainToClass } from 'class-transformer';
 
 const ACCESS_TOKEN = 'accessToken';
 const REFRESH_TOKEN = 'refreshToken';
@@ -17,9 +17,13 @@ const REFRESH_TOKEN = 'refreshToken';
   providedIn: 'root',
 })
 export class AuthService {
-  readonly user$ = new BehaviorSubject<User | null>(null);
+  readonly user$ = new BehaviorSubject<ProfileInfoUser | null>(null);
 
   constructor(private readonly httpClient: HttpClient) {}
+
+  get user(): ProfileInfoUser | null {
+    return this.user$.getValue();
+  }
 
   getToken(): string | null {
     return localStorage.getItem(ACCESS_TOKEN);
@@ -39,13 +43,8 @@ export class AuthService {
     localStorage.removeItem(REFRESH_TOKEN);
   }
 
-  get user(): User | null {
-    return this.user$.getValue();
-  }
-
-  loginLocal(result: AuthLoginResult): void {
-    if (result.token) this.saveTokens(result);
-    this.user$.next(result.user);
+  isAuthenticated(): boolean {
+    return this.user !== null;
   }
 
   logoutLocal(): void {
@@ -83,24 +82,8 @@ export class AuthService {
     return this.httpClient.post<void>(`${environment.host}/auth/logout`, {});
   }
 
-  getProfile() {
-    return new Promise((resolve) => {
-      if (!this.getToken()) {
-        resolve(false);
-        return;
-      }
-
-      this.httpClient.get<AuthLoginResult>(`${environment.host}/user/profile`).subscribe({
-        next: (value: AuthLoginResult) => {
-          this.loginLocal(value);
-          resolve(true);
-        },
-        error: (err) => {
-          this.logoutLocal();
-          resolve(false);
-        },
-      });
-    });
+  isLoggedIn(): Observable<ProfileInfoUser> {
+    return this.httpClient.get<ProfileInfoUser>(`${environment.host}/user/profile`);
   }
 
   // isAllowed(...rights: string[]): boolean {
